@@ -2,6 +2,7 @@ const { WebpackPluginServe } = require('webpack-plugin-serve');
 const { MiniHtmlWebpackPlugin } = require('mini-html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const APP_SOURCE = path.join(__dirname, 'src');
 const glob = require('glob');
 const PurgeCSSPlugin = require('purgecss-webpack-plugin');
 
@@ -88,6 +89,15 @@ exports.loadImages = ({ limit } = {}) => ({
         type: 'asset',
         parser: { dataUrlCondition: { maxSize: limit } },
       },
+    ],
+  },
+});
+
+exports.loadJavaScript = () => ({
+  module: {
+    rules: [
+      // Consider extracting include as a parameter
+      { test: /\.js$/, include: APP_SOURCE, use: 'babel-loader' },
     ],
   },
 });
