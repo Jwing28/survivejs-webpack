@@ -1,0 +1,4 @@
+Source maps (a file, with .map, that maps (js code) the source files to the dist files. This makes debugging much easier in production (and can help development, though some omit sourcemaps))
+inline source maps (directly added to generated files) great for development. Because they make bundles large.
+
+separate source maps are great for production.
