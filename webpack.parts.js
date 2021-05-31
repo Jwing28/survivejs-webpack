@@ -5,6 +5,7 @@ const path = require('path');
 const APP_SOURCE = path.join(__dirname, 'src');
 const glob = require('glob');
 const PurgeCSSPlugin = require('purgecss-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ALL_FILES = glob.sync(path.join(__dirname, 'src/*.js'));
 
@@ -103,3 +104,13 @@ exports.loadJavaScript = () => ({
 });
 
 exports.generateSourceMaps = ({ type }) => ({ devtool: type });
+
+exports.clean = () => ({ plugins: [new CleanWebpackPlugin()] });
+
+exports.attachRevision = () => ({
+  plugins: [
+    new webpack.BannerPlugin({
+      banner: new GitRevisionPlugin().version(),
+    }),
+  ],
+});

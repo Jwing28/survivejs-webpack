@@ -9,10 +9,13 @@ const commonConfig = merge([
   parts.extractCSS({ loaders: cssLoaders }),
   parts.loadImages({ limit: 15000 }),
   parts.loadJavaScript(),
+  { output: { path: path.resolve(process.cwd(), 'dist') } },
+  parts.clean(),
 ]);
 
 const productionConfig = merge([
   parts.eliminateUnusedCSS(),
+  parts.attachRevision,
   parts.generateSourceMaps({ type: 'source-map' }),
   { optimization: { splitChunks: { chunks: 'all' } } },
   {
